@@ -8,6 +8,6 @@ CREATE TABLE blogs (
 
 INSERT INTO blogs (title, author, url) VALUES ('First ever blog', 'bebi', 'https://bebidev.netlify.app');
 
-INSERT INTO blogs (title, author, url) VALUES ('Second blog post', 'John Doe', 'https://example.com/second-blog');
+INSERT INTO blogs (title, author, url) VALUES ('Second blog post', 'John Doe', 'https://youtube.com');
 
 SELECT * FROM blogs;
