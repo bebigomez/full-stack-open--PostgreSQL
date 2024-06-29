@@ -11,8 +11,8 @@ const loginRouter = require('./controllers/login')
 app.use(express.json())
 
 app.use('/api/blogs', blogsRouter)
-app.use('/api/blogs', usersRouter)
-app.use('/api/blogs', loginRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 const start = async () => {
   await connectToDatabase()
