@@ -7,12 +7,12 @@ router.get('/', async (req, res) => {
   res.json(users)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     res.json(user)
   } catch (error) {
-    return res.status(400).json({ error })
+    next(error)
   }
 })
 
@@ -39,5 +39,17 @@ router.put('/:id', async (req, res) => {
     res.status(404).end()
   }
 })
+
+const errorHandler = (error, req, res, next) => {
+  console.error(error.message)
+
+  if (error.name === 'SequelizeValidationError') {
+    return res.json({ error: 'Validation isEmail on username failed' })
+  }
+
+  next(error)
+}
+
+router.use(errorHandler)
 
 module.exports = router
