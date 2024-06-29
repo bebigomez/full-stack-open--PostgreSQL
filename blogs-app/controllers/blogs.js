@@ -63,6 +63,32 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
+router.delete('/:id', tokenExtractor, async (req, res, next) => {
+  try {
+    // Buscar al usuario autenticado por su ID en el token
+    const user = await User.findByPk(req.decodedToken.id)
+
+    if (user) {
+      // Buscar el blog específico por su ID
+      const blog = await Blog.findByPk(req.params.id)
+
+      if (blog) {
+        // Si el blog pertenece al usuario autenticado, proceder con la eliminación
+        await blog.destroy()
+        res.status(204).end() // 204 No Content
+      } else {
+        // Si el blog no fue encontrado...
+        res.status(404).json({ error: 'Blog not found' }) // 404 Not Found
+      }
+    } else {
+      // Si el usuario no está autenticado correctamente
+      res.status(401).json({ error: 'Unauthorized' }) // 401 Unauthorized
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 const errorHandler = (error, req, res, next) => {
   console.error(error.message)
 
