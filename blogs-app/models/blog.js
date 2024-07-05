@@ -1,4 +1,4 @@
- const { Model, DataTypes } = require('sequelize')
+const { Model, DataTypes } = require('sequelize')
 
 const { sequelize } = require('../util/db')
 
@@ -24,7 +24,19 @@ Blog.init(
     likes: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-    }, 
+    },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isValidYear(year) {
+          const currentYear = new Date().getFullYear()
+          if (year < 1991 || year > currentYear) {
+            throw new Error(`Year can only go from 1991 to ${currentYear}`)
+          }
+        },
+      },
+    },
   },
   {
     sequelize,
