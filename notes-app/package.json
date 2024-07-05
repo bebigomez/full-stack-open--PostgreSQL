@@ -6,11 +6,15 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "migration:down": "node ./util/rollback.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "bebi",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "eslint": "^9.6.0",
+    "globals": "^15.8.0",
     "nodemon": "^3.1.4"
   },
   "dependencies": {
@@ -18,6 +22,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.12.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "umzug": "^3.8.1"
   }
 }
