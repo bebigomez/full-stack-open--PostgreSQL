@@ -21,7 +21,7 @@ router.put('/:id', tokenExtractor, async (req, res, next) => {
       return res.status(401).json({ error: 'Unauthorized' });
     }
     
-    readingList.state = req.body.state;
+    readingList.read = req.body.read;
     await readingList.save();
 
     res.json(readingList);
