@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     include: {
       model: User,
     },
-    order: [ ['likes', 'DESC'] ],
+    order: [['likes', 'DESC']],
     where,
   })
 
