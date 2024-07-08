@@ -66,7 +66,7 @@ router.get('/:id', async (req, res) => {
       {
         model: Note,
         as: 'marked_notes',
-        attributes: { exclude: ['userId']},
+        attributes: { exclude: ['userId'] },
         through: {
           attributes: [],
         },
@@ -75,21 +75,22 @@ router.get('/:id', async (req, res) => {
           attributes: ['name'],
         },
       },
-      {
-        model: Team,
-        attributes: ['name'],
-        through: {
-          attributes: [],
-        },
-      },
     ],
   })
 
-  if (user) {
-    res.json(user)
-  } else {
+  if (!user) {
     res.status(404).end()
   }
+
+  let teams = undefined
+  if (req.query.teams) {
+    teams = await user.getTeams({
+      attributes: ['name'],
+      joinTableAttributes: [],
+    })
+  }
+
+  res.json({ ...user.toJSON(), teams })
 })
 
 module.exports = router
